@@ -1,0 +1,20 @@
+sudo: required
+services:
+    - docker
+
+before_install:
+  - docker build -t vnsoccer/react-test -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run vnsoccer/react-test npm test -- --coverage
+
+after_success:
+  - docker build -t vnsoccer/multi-client ./client
+  - docker build -t vnsoccer/multi-nginx ./nginx
+  - docker build -t vnsoccer/multi-server ./server
+  - docker build -t vnsoccer/multi-worker ./worker
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  - docker push vnsoccer/multi-client
+  - docker push vnsoccer/multi-nginx
+  - docker push vnsoccer/multi-server
+  - docker push vnsoccer/multi-worker
