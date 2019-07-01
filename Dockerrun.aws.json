@@ -1,0 +1,30 @@
+{
+  "AWSEBDockerrunVersion": 2,
+  "containerDefinitions": [
+    {
+      "name": client",
+      "image": "vnsoccer/multi-client",
+      "hostname": "client",
+      "essential": false
+    },
+    {
+      "name": server",
+      "image": "vnsoccer/multi-server",
+      "hostname": "api",
+      "essential": false
+    },
+    {
+      "name": worker",
+      "image": "vnsoccer/multi-worker",
+      "hostname": "worker",
+      "essential": false
+    },
+    {
+      "name": nginx",
+      "image": "vnsoccer/multi-nginx",
+      "hostname": "nginx",
+      "essential": true
+    }
+  ],
+  "links": ["client", "server"]
+}
