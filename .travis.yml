@@ -18,3 +18,5 @@ after_success:
   - docker push vnsoccer/multi-nginx
   - docker push vnsoccer/multi-server
   - docker push vnsoccer/multi-worker
+
+  
